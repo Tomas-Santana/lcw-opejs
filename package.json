@@ -1,0 +1,11 @@
+{
+  "name": "opejs",
+  "version": "1.0.0",
+  "description": "Operaciones basicas con matrices. Integrales.",
+  "main": "Ope.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Tomas Santana",
+  "license": "ISC"
+}
