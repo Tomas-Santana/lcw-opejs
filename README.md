@@ -1,5 +1,5 @@
 # OPEJS
-Conjunto de funciones para el manejo de operaciones matemáticas en JavaScript.
+Conjunto de funciones para el manejo de operaciones matemáticas en JavaScript. Realizado como proyecto para la materia de Lenguaje de Clientes Web de la Universidad Rafael Urdanteta.
 
 ## Operaciones disponibles
 ### Metodos numericos
