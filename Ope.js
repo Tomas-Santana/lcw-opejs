@@ -24,9 +24,10 @@ class Ope {
             throw "Error: x debe ser positivo";
         }
 
+
         // raiz cuadrada por metodo de newton
         const e = 0.0001;
-        let actual = x;
+        let actual = x > 1 ? x : x+1; // si x<1, sqrt(x) > x
         let anterior = 0;
 
         while (this.getAbs(actual - anterior)/actual > e) {
