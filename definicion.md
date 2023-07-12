@@ -1,6 +1,6 @@
 Resolver integrales con JavaScript:
 
-**Entrega **
+**Entrega**
 
 Paso una expresion, los límites, y me devuelve un resultado.
 

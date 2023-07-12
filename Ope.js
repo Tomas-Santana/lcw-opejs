@@ -7,7 +7,7 @@ class Ope {
     * @param  {int} x 
     * @return {int} el valor absoluto del numero 
     */
-    getAbs(x) {
+    #getAbs(x) {
         return x < 0 ? -x : x;
     }
     /**
@@ -30,7 +30,7 @@ class Ope {
         let actual = x > 1 ? x : x+1; // si x<1, sqrt(x) > x
         let anterior = 0;
 
-        while (this.getAbs(actual - anterior)/actual > e) {
+        while (this.#getAbs(actual - anterior)/actual > e) {
             anterior = actual;
             actual = (anterior + x/anterior) / 2; // formula de newton
         }
@@ -52,7 +52,7 @@ class Ope {
             gx = fx;
         }
         else if (typeof fx === 'string') {
-            gx = x => eval(fx.replaceAll("x", `(${x})`)); // necesita estar entre parentesis para evitar errores con numeros negativos
+            gx = val => eval(fx.replaceAll("x", `(${val})`)); // necesita estar entre parentesis para evitar errores con numeros negativos
         }
         else {
             throw "Error: fx debe ser una funcion o un string";
@@ -205,7 +205,7 @@ class Ope {
      * @param {int} columna
      * @returns {[[int]]} el cofactor M(fila)(columna) de la matriz.
      */
-    getCofactor(matriz, fila, columna) {
+    #getCofactor(matriz, fila, columna) {
         let cofactor = [];
 
         for (let i = 0; i < matriz.length; i++) {
@@ -229,7 +229,7 @@ class Ope {
      * @returns {int} el determinante de la matriz.
      * @requires getCofactor()
      */
-    getDeterminante(matriz) {
+    #getDeterminante(matriz) {
         // validaciones
         if (matriz.length !== matriz[0].length) {
             throw "Error: la matriz debe ser cuadrada";
@@ -242,9 +242,9 @@ class Ope {
         // caso recursivo
         let determinante = 0;
         for (let j=0; j<matriz.length; j++) {
-            const cofactor = this.getCofactor(matriz, 0, j);
+            const cofactor = this.#getCofactor(matriz, 0, j);
             // se hace la recursion. Como el cofactor es de menor tamaño, cae en el caso base eventualemente                             
-            determinante += matriz[0][j] * (-1)**(2+j) * this.getDeterminante(cofactor); 
+            determinante += matriz[0][j] * (-1)**(2+j) * this.#getDeterminante(cofactor); 
         }                                                                                
         return determinante;
 
@@ -256,7 +256,7 @@ class Ope {
      * @requires getCofactor()
      * @requires getDeterminante()
      */
-    getAdjunta(matriz) {
+    #getAdjunta(matriz) {
         // validaciones
         if (matriz.length !== matriz[0].length) {
             throw "Error: la matriz debe ser cuadrada";
@@ -266,8 +266,8 @@ class Ope {
         for (let i = 0; i < matriz.length; i++) {
             const fila = [];
             for (let j = 0; j < matriz.length; j++) {
-                const cofactor = this.getCofactor(matriz, i, j);
-                fila.push((-1)**(i+j+2) * this.getDeterminante(cofactor));
+                const cofactor = this.#getCofactor(matriz, i, j);
+                fila.push((-1)**(i+j+2) * this.#getDeterminante(cofactor));
             }
             matrizCofactores.push(fila);
         }
@@ -291,9 +291,9 @@ class Ope {
         }
 
         // formula: A^-1 = adj(A)/det(A) 
-        const determinant = this.getDeterminante(matriz);
+        const determinant = this.#getDeterminante(matriz);
         if (determinant === 0) return "La matriz no tiene inversa";
-        const adjunta = this.getAdjunta(matriz);
+        const adjunta = this.#getAdjunta(matriz);
 
         const matrizInversa = this.prodEscalar(adjunta, 1/determinant);
         return matrizInversa; 
